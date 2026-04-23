@@ -27,8 +27,8 @@ from datetime import datetime
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SENDER_EMAIL = "your_throwaway@gmail.com"          # Your throwaway Gmail
-SENDER_PASSWORD = "your_16_char_app_password"       # Gmail App Password
+SENDER_EMAIL = "communications@macornb.info"          # Your throwaway Gmail
+SENDER_PASSWORD = "Y.Qx$iBEs8*$55h"       # Gmail App Password
 SENDER_DISPLAY_NAME = "Communications"
 
 # This is the "From" address recipients will see
@@ -38,7 +38,7 @@ DISPLAY_FROM_EMAIL = "communications@macornb.info"
 PROFESSOR_EMAIL = "naboznyk@macomb.edu"
 
 # Your tracking server URL (update after deploying to Render)
-TRACKING_SERVER_URL = "https://your-app-name.onrender.com"
+TRACKING_SERVER_URL = "https://soceng-project.onrender.com"
 
 # Input/output files
 TARGETS_CSV = "targets.csv"
@@ -55,7 +55,7 @@ BATCH_PAUSE = 60            # seconds to pause between batches
 # EMAIL TEMPLATE — MATCHES MACOMB COMMUNICATIONS STYLE
 # ============================================================
 
-SUBJECT = "Important: Verify Your Account Information"
+SUBJECT = "Employee Benefits Packages Increasing"
 
 def build_email_body(name, tracking_url):
     first_name = name.split()[0] if name else "Employee"
