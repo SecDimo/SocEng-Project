@@ -1,0 +1,10 @@
+# Logs
+click_log.csv
+send_log.csv
+
+# Don't push your real target list
+# targets.csv
+
+# Python
+__pycache__/
+*.pyc
