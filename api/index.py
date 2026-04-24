@@ -1,45 +1,78 @@
-from flask import Flask, render_template_string, request, send_file, jsonify
-from datetime import datetime
-import csv
 import os
 import json
-
+import urllib.request
+import urllib.parse
+from flask import Flask, render_template_string, request
+from datetime import datetime
+ 
 app = Flask(__name__)
-
-# Vercel's /tmp is the only writable directory
-LOG_FILE = "/tmp/click_log.csv"
+ 
+# ============================================================
+# SUPABASE CONFIG — UPDATE THESE
+# ============================================================
+SUPABASE_URL = "https://gohgblgjvdsnmuhiqejm.supabase.co/rest/v1/"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvaGdibGdqdmRzbm11aGlxZWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODQ5ODgsImV4cCI6MjA5MjU2MDk4OH0.wgfe-5HLsB5OtX-FaetWlv-55HfLY6rtb5ZjIg9MNRE" 
+ 
 TARGETS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "targets.json")
-
-
+ 
+ 
 def load_targets():
     if os.path.exists(TARGETS_FILE):
         with open(TARGETS_FILE, "r") as f:
             return json.load(f)
     return {}
-
-
-def log_click(tracking_id, ip_address, user_agent):
+ 
+ 
+def save_click_to_supabase(tracking_id, ip_address, user_agent):
+    """Save click to Supabase database — permanent storage."""
     targets = load_targets()
     target_info = targets.get(tracking_id, {})
-
-    file_exists = os.path.exists(LOG_FILE)
-    with open(LOG_FILE, "a", newline="") as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow([
-                "timestamp", "tracking_id", "name", "email",
-                "ip_address", "user_agent"
-            ])
-        writer.writerow([
-            datetime.now().isoformat(),
-            tracking_id,
-            target_info.get("name", "Unknown"),
-            target_info.get("email", "Unknown"),
-            ip_address,
-            user_agent
-        ])
-
-
+ 
+    data = json.dumps({
+        "timestamp": datetime.now().isoformat(),
+        "tracking_id": tracking_id,
+        "name": target_info.get("name", "Unknown"),
+        "email": target_info.get("email", "Unknown"),
+        "ip_address": ip_address,
+        "user_agent": user_agent
+    }).encode("utf-8")
+ 
+    req = urllib.request.Request(
+        f"{SUPABASE_URL}/rest/v1/clicks",
+        data=data,
+        headers={
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+        },
+        method="POST"
+    )
+ 
+    try:
+        urllib.request.urlopen(req)
+    except Exception as e:
+        print(f"Supabase error: {e}")
+ 
+ 
+def get_clicks_from_supabase():
+    """Retrieve all clicks from Supabase."""
+    req = urllib.request.Request(
+        f"{SUPABASE_URL}/rest/v1/clicks?select=*&order=timestamp.desc",
+        headers={
+            "apikey": SUPABASE_KEY,
+            "Authorization": f"Bearer {SUPABASE_KEY}",
+        }
+    )
+ 
+    try:
+        response = urllib.request.urlopen(req)
+        return json.loads(response.read().decode("utf-8"))
+    except Exception as e:
+        print(f"Supabase read error: {e}")
+        return []
+ 
+ 
 LANDING_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -104,30 +137,25 @@ LANDING_PAGE = """
 </body>
 </html>
 """
-
-
-@app.route("/t/<tracking_id>")
+ 
+ 
+@app.route("/t/test123")
 def track_click(tracking_id):
-    log_click(
+    save_click_to_supabase(
         tracking_id,
         request.headers.get("X-Forwarded-For", request.remote_addr),
         request.headers.get("User-Agent", "Unknown")
     )
     return render_template_string(LANDING_PAGE)
-
-
+ 
+ 
 @app.route("/dashboard")
 def dashboard():
-    clicks = []
-    if os.path.exists(LOG_FILE):
-        with open(LOG_FILE, "r") as f:
-            reader = csv.DictReader(f)
-            clicks = list(reader)
-
-    unique_ids = set(c["tracking_id"] for c in clicks)
+    clicks = get_clicks_from_supabase()
+    unique_ids = set(c.get("tracking_id", "") for c in clicks)
     targets = load_targets()
     total_targets = len(targets)
-
+ 
     return render_template_string("""
     <!DOCTYPE html>
     <html><head><title>Phishing Dashboard</title>
@@ -141,18 +169,18 @@ def dashboard():
       table { width: 100%; border-collapse: collapse; margin-top: 20px; }
       th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
       th { background: #f9fafb; font-weight: 600; }
-      .note { margin-top: 16px; padding: 12px; background: #fef3c7; border-radius: 6px; font-size: 13px; color: #92400e; }
+      .badge { display: inline-block; background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 10px; font-size: 11px; }
     </style></head><body>
       <h1>Phishing Campaign Dashboard</h1>
-      <p style="color:#6b7280;">Results for your Vulnerability Analysis Report</p>
+      <p style="color:#6b7280;">Results for your Vulnerability Analysis Report
+        <span class="badge">Logs saved permanently</span>
+      </p>
       <div class="stats">
         <div class="stat"><div class="num">{{ total_targets }}</div><div class="label">Emails Sent</div></div>
         <div class="stat"><div class="num">{{ unique }}</div><div class="label">Unique Clicks</div></div>
         <div class="stat"><div class="num">{{ total }}</div><div class="label">Total Clicks</div></div>
         <div class="stat"><div class="num">{{ rate }}%</div><div class="label">Click Rate</div></div>
       </div>
-      <div class="note">Note: Vercel uses serverless functions, so logs reset when the function cold starts.
-      Check the dashboard shortly after sending your campaign for best results.</div>
       <h2 style="margin-top:24px;">Click Log</h2>
       <table>
         <tr><th>Time</th><th>Name</th><th>Email</th><th>IP Address</th></tr>
@@ -176,8 +204,9 @@ def dashboard():
         total_targets=total_targets,
         rate=round((len(unique_ids) / total_targets * 100), 1) if total_targets > 0 else 0
     )
-
-
+ 
+ 
 @app.route("/")
 def home():
     return "Server is running. Go to /dashboard to view results."
+ 
