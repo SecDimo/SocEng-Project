@@ -10,7 +10,7 @@ app = Flask(__name__)
 # ============================================================
 # SUPABASE CONFIG — UPDATE THESE
 # ============================================================
-SUPABASE_URL = "https://gohgblgjvdsnmuhiqejm.supabase.co/rest/v1/"
+SUPABASE_URL = "https://gohgblgjvdsnmuhiqejm.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdvaGdibGdqdmRzbm11aGlxZWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5ODQ5ODgsImV4cCI6MjA5MjU2MDk4OH0.wgfe-5HLsB5OtX-FaetWlv-55HfLY6rtb5ZjIg9MNRE" 
  
 TARGETS_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "targets.json")
