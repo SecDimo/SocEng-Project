@@ -1,7 +1,6 @@
 import os
 import json
 import urllib.request
-import urllib.parse
 from flask import Flask, render_template_string, request
 from datetime import datetime
  
@@ -23,8 +22,7 @@ def load_targets():
     return {}
  
  
-def save_click_to_supabase(tracking_id, ip_address, user_agent):
-    """Save click to Supabase database — permanent storage."""
+def save_click(tracking_id, ip_address, user_agent):
     targets = load_targets()
     target_info = targets.get(tracking_id, {})
  
@@ -55,8 +53,7 @@ def save_click_to_supabase(tracking_id, ip_address, user_agent):
         print(f"Supabase error: {e}")
  
  
-def get_clicks_from_supabase():
-    """Retrieve all clicks from Supabase."""
+def get_clicks():
     req = urllib.request.Request(
         f"{SUPABASE_URL}/rest/v1/clicks?select=*&order=timestamp.desc",
         headers={
@@ -83,31 +80,18 @@ LANDING_PAGE = """
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-      background: #f0f4f8;
-      padding: 20px;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; padding: 20px;
     }
     .container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-      max-width: 560px;
-      width: 100%;
-      text-align: center;
-      overflow: hidden;
+      background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      max-width: 560px; width: 100%; text-align: center; overflow: hidden;
     }
     .banner { background: #dc2626; color: white; padding: 24px; font-size: 48px; }
     .content { padding: 32px 28px; }
     h1 { color: #dc2626; font-size: 24px; margin-bottom: 16px; }
     p { color: #374151; font-size: 16px; line-height: 1.6; margin-bottom: 12px; }
-    .tips {
-      text-align: left; background: #fef2f2;
-      border-radius: 8px; padding: 20px 24px; margin-top: 20px;
-    }
+    .tips { text-align: left; background: #fef2f2; border-radius: 8px; padding: 20px 24px; margin-top: 20px; }
     .tips h2 { font-size: 16px; color: #991b1b; margin-bottom: 10px; }
     .tips ul { padding-left: 20px; color: #374151; font-size: 14px; line-height: 1.8; }
     .footer { margin-top: 24px; font-size: 13px; color: #9ca3af; }
@@ -139,9 +123,10 @@ LANDING_PAGE = """
 """
  
  
-@app.route("/t/test123")
+@app.route("/api/t/<tracking_id>")
+@app.route("/t/<tracking_id>")
 def track_click(tracking_id):
-    save_click_to_supabase(
+    save_click(
         tracking_id,
         request.headers.get("X-Forwarded-For", request.remote_addr),
         request.headers.get("User-Agent", "Unknown")
@@ -149,9 +134,10 @@ def track_click(tracking_id):
     return render_template_string(LANDING_PAGE)
  
  
+@app.route("/api/dashboard")
 @app.route("/dashboard")
 def dashboard():
-    clicks = get_clicks_from_supabase()
+    clicks = get_clicks()
     unique_ids = set(c.get("tracking_id", "") for c in clicks)
     targets = load_targets()
     total_targets = len(targets)
@@ -193,7 +179,7 @@ def dashboard():
         </tr>
         {% endfor %}
         {% if not clicks %}
-        <tr><td colspan="4" style="text-align:center;color:#9ca3af;padding:40px;">No clicks yet. Waiting for targets to click...</td></tr>
+        <tr><td colspan="4" style="text-align:center;color:#9ca3af;padding:40px;">No clicks yet.</td></tr>
         {% endif %}
       </table>
     </body></html>
@@ -206,6 +192,7 @@ def dashboard():
     )
  
  
+@app.route("/api")
 @app.route("/")
 def home():
     return "Server is running. Go to /dashboard to view results."
