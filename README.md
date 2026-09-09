@@ -1,166 +1,114 @@
-SocEng-Project — Phishing Awareness Campaign
+# SocEng-Project
 
-An authorized social engineering and phishing-awareness project developed for the Macomb College Vulnerability Analysis Report.
+## Phishing Awareness Campaign
 
-The project demonstrates how publicly available information can be used to create realistic, targeted phishing-awareness scenarios. The campaign focused on OSINT (Open-Source Intelligence), email design, target identification, and social-engineering awareness.
+Authorized social engineering and phishing-awareness project developed for the Macomb College Vulnerability Analysis Report.
 
-Project Overview
+This project demonstrates how **Open-Source Intelligence (OSINT)** can be used to identify publicly available information about potential targets and how that information can be incorporated into realistic phishing-awareness scenarios.
 
-The goal of this project was to demonstrate how an attacker could use publicly available information to create a convincing, targeted phishing email.
+The project focused on OSINT, target identification, HTML email development, and the creation of realistic phishing email templates.
 
-The project consisted of:
+## Project Objectives
 
-Conducting OSINT research on publicly available information
-Identifying appropriate campaign targets within the authorized scope
-Creating realistic HTML-based email content
-Designing custom email header and footer banners
-Creating multiple phishing-themed email templates
-Manually composing emails using the prepared HTML content
-Sending the simulated phishing emails to the identified targets
-Documenting the campaign methodology and results
+The primary objectives of this project were to:
 
-The campaign was conducted as an authorized academic security exercise.
+- Conduct OSINT research using publicly available information.
+- Identify appropriate targets within the authorized scope.
+- Determine information that could be used to make a phishing email more convincing.
+- Create realistic HTML-based phishing email templates.
+- Design custom email header and footer graphics.
+- Simulate targeted phishing emails using the developed materials.
+- Document the methodology and results for the vulnerability analysis report.
 
-Project Files
-File	Purpose
-README.md	Project documentation
-email_template.html	Main phishing-awareness email template
-email_template_maintenance.html	Maintenance-themed email template
-email_template_survey.html	Survey-themed email template
-header_banner.jpg	Custom email header graphic
-footer_banner.jpg	Custom email footer graphic
-requirements.txt	Project dependencies
-vercel.json	Deployment configuration
-api/	Supporting project components
-Note
+## Methodology
 
-The project did not use the targets.csv, targets.json, send_log.csv, or click_log.csv workflow described in earlier documentation. Targets were identified through OSINT, and the emails were manually created and sent using the prepared HTML content.
+The project was divided into several stages.
 
-OSINT Methodology
+### 1. OSINT Research
 
-The first stage of the project involved gathering information from publicly available sources.
+Publicly available information was gathered to identify individuals and relevant organizational information within the approved scope.
 
-The objective was to identify information that could potentially be used to make a phishing email appear more legitimate or relevant to its recipient.
+The research focused on information that could potentially be used by an attacker to create a more convincing and personalized phishing email.
 
-The research process included:
+Examples of information researched included:
 
-Identifying publicly available information sources.
-Searching for information about individuals and organizational roles within the approved scope.
-Correlating publicly available information to identify potential targets.
-Recording relevant information needed to construct the awareness scenario.
-Using the collected information to make the simulated emails more realistic.
+- Names
+- Organizational roles
+- Publicly available contact information
+- Public organizational information
+- Other information relevant to developing the phishing scenario
 
-Only information available through authorized, publicly accessible sources was used.
+The information was gathered through publicly available sources and used only within the scope of the authorized assessment.
 
-Email Development
+### 2. Target Identification
 
-Custom HTML email content was developed for the campaign.
+After conducting OSINT research, potential targets were identified based on the information collected.
 
-The project included multiple scenarios, including:
+The target identification process consisted of correlating publicly available information to determine appropriate recipients for the simulated campaign.
 
-Maintenance Notification
+No automated target database or tracking system was used.
 
-A simulated maintenance-related communication designed to demonstrate how routine IT or organizational notifications can be used as a social-engineering lure.
+### 3. Email Template Development
 
-Survey
+Custom HTML email templates were created for the phishing-awareness campaign.
 
-A simulated survey-related communication demonstrating how requests for feedback or participation can be used to encourage recipients to interact with an email.
+The repository contains multiple email scenarios:
 
-Custom Email Branding
+| File | Description |
+|---|---|
+| `email_template.html` | Main phishing email template |
+| `email_template_maintenance.html` | Maintenance-themed phishing email |
+| `email_template_survey.html` | Survey-themed phishing email |
 
-The email templates were designed with custom:
+The templates were designed to resemble legitimate organizational communications while demonstrating common phishing and social-engineering techniques.
 
-Header banners
-Footer banners
-HTML formatting
-Email layouts
-Organizational-style visual elements
+### 4. Email Design
 
-The HTML content was then copied into the email body when preparing the campaign messages.
+Custom visual elements were created for the email templates.
 
-Campaign Process
+| File | Description |
+|---|---|
+| `header_banner.jpg` | Custom header banner used in the email |
+| `footer_banner.jpg` | Custom footer banner used in the email |
 
-The overall workflow was:
+The HTML templates incorporated these graphics to create a more realistic and professional-looking email.
 
-Public Information
-       ↓
-      OSINT
-       ↓
+### 5. Email Preparation
+
+The completed HTML email templates were manually copied into the email body when preparing the campaign messages.
+
+The emails were not generated through an automated mailing system.
+
+Instead, each email was manually prepared using the HTML content created for the project.
+
+### 6. Campaign
+
+The prepared phishing-awareness emails were sent to the identified targets as part of the authorized academic exercise.
+
+The campaign was designed to demonstrate how information gathered through OSINT could be combined with realistic email content to create a targeted social-engineering scenario.
+
+## Campaign Workflow
+
+```text
+OSINT Research
+      |
+      v
 Target Identification
-       ↓
-Scenario Development
-       ↓
-HTML Email Design
-       ↓
-Header / Footer Creation
-       ↓
+      |
+      v
+Phishing Scenario Development
+      |
+      v
+HTML Email Creation
+      |
+      v
+Header & Footer Design
+      |
+      v
 Manual Email Preparation
-       ↓
-Authorized Campaign
-       ↓
+      |
+      v
+Authorized Phishing Simulation
+      |
+      v
 Results & Analysis
-Security Awareness Objective
-
-The purpose of the campaign was not simply to send deceptive emails. The larger objective was to demonstrate the social-engineering techniques that can make phishing messages convincing.
-
-The project demonstrates several common phishing concepts:
-
-Personalization
-Authority impersonation
-Familiar organizational branding
-Urgency
-Routine maintenance notifications
-Survey requests
-Use of publicly available information
-Professional-looking HTML formatting
-
-Understanding these techniques can help organizations and employees recognize suspicious communications before interacting with them.
-
-Ethical Considerations
-
-This project was conducted as part of an authorized academic cybersecurity exercise.
-
-The following principles applied to the campaign:
-
-Targets were limited to the approved scope.
-OSINT information was obtained from publicly available sources.
-The campaign was conducted for educational and security-awareness purposes.
-No malware was distributed.
-No unauthorized account access was attempted.
-Credentials were not intentionally collected.
-Information obtained during the exercise was handled as assessment data.
-Campaign activity was documented for inclusion in the final assessment.
-
-If sensitive credentials or other sensitive information were unexpectedly disclosed during the exercise, the appropriate instructor/project supervisor would be notified immediately.
-
-Technologies & Techniques
-
-Technologies:
-
-HTML
-Python
-GitHub
-Email
-Web-based OSINT resources
-
-Security techniques:
-
-Open-Source Intelligence (OSINT)
-Social engineering
-Phishing simulation
-Target profiling
-Email analysis
-Security awareness testing
-Academic Context
-
-This project was developed as part of the Macomb College Vulnerability Analysis Report and was intended to demonstrate the risks associated with targeted social-engineering attacks.
-
-The project highlights an important security principle:
-
-A phishing attack does not necessarily require sophisticated malware or technical exploitation. Publicly available information combined with convincing communication can be enough to create a credible social-engineering scenario.
-
-Disclaimer
-
-This project is intended for authorized educational, security-awareness, and cybersecurity assessment purposes only.
-
-Any use of the techniques or materials described in this repository against individuals, organizations, or systems without appropriate authorization is prohibited.
