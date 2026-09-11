@@ -1,114 +1,55 @@
 # SocEng-Project
-
 ## Phishing Awareness Campaign
 
-Authorized social engineering and phishing-awareness project developed for the Macomb College Vulnerability Analysis Report.
+This project was conducted strictly as an authorized academic exercise for a Macomb Community College vulnerability analysis report. It was not intended to cause harm to any individual or organization, and no real data was collected or misused — the goal was solely to measure security awareness and produce defensive recommendations.
 
-This project demonstrates how **Open-Source Intelligence (OSINT)** can be used to identify publicly available information about potential targets and how that information can be incorporated into realistic phishing-awareness scenarios.
+## Overview
 
-The project focused on OSINT, target identification, HTML email development, and the creation of realistic phishing email templates.
+The project used Open-Source Intelligence (OSINT) techniques to gather publicly available information, which informed a realistic simulated phishing campaign sent to an authorized group of targets. The campaign measured how many recipients engaged with the simulated phishing content, and those results were compiled into a report with recommendations for improving organizational security awareness.
 
-## Project Objectives
+## Objectives
 
-The primary objectives of this project were to:
+- Demonstrate how OSINT can be used to make a phishing attempt more convincing
+- Simulate a realistic, targeted phishing campaign within an authorized scope
+- Measure recipient engagement to assess awareness gaps
+- Document findings and provide defensive recommendations
 
-- Conduct OSINT research using publicly available information.
-- Identify appropriate targets within the authorized scope.
-- Determine information that could be used to make a phishing email more convincing.
-- Create realistic HTML-based phishing email templates.
-- Design custom email header and footer graphics.
-- Simulate targeted phishing emails using the developed materials.
-- Document the methodology and results for the vulnerability analysis report.
+## Project Steps
 
-## Methodology
+1. **OSINT Research** — Used OSINT to gather publicly available information on faculty in non-IT technical roles, within the authorized scope, to build a convincing, realistic phishing scenario.
+2. **Target Identification** — Identified appropriate faculty recipients based on the OSINT findings, focusing on non-IT technical staff.
+3. **Email Template Development** — Built custom HTML phishing email templates resembling legitimate organizational communications.
+4. **Visual Design** — Created custom header and footer graphics for a professional, realistic appearance.
+5. **Campaign Execution** — Sent the prepared emails to the authorized target group.
+6. **Engagement Measurement** — Tracked recipient engagement with the simulated phishing content to assess awareness.
+7. **Results & Analysis** — Compiled findings and produced defensive recommendations for the vulnerability analysis report.
 
-The project was divided into several stages.
 
-### 1. OSINT Research
+## Built With
 
-Publicly available information was gathered to identify individuals and relevant organizational information within the approved scope.
+- HTML/CSS — email template design
+- Vercel — landing page hosting
+- Supabase — engagement data logging
+- OSINT research techniques
 
-The research focused on information that could potentially be used by an attacker to create a more convincing and personalized phishing email.
+## Results
 
-Examples of information researched included:
+15 emails sent
+15 clicks registered in database
 
-- Names
-- Organizational roles
-- Publicly available contact information
-- Public organizational information
-- Other information relevant to developing the phishing scenario
+**Screenshots:**
+<img width="849" height="949" alt="Screenshot 2026-09-10 203605" src="https://github.com/user-attachments/assets/0640e9b1-288f-4562-ba1c-28bdb9f5c6df" />![Uploading Screenshot 2026-09-10 203605.png…]()
+<img width="714" height="699" alt="Screenshot 2026-09-10 204439" src="https://github.com/user-attachments/assets/391aa223-2d84-48c6-bba6-37907e6ac08f" />
 
-The information was gathered through publicly available sources and used only within the scope of the authorized assessment.
 
-### 2. Target Identification
+- Simulated phishing email (employee survey pretext)
+- Awareness reveal page shown to recipients who clicked
 
-After conducting OSINT research, potential targets were identified based on the information collected.
+## Author
 
-The target identification process consisted of correlating publicly available information to determine appropriate recipients for the simulated campaign.
+**Nenad Dimovski**
+[LinkedIn](https://linkedin.com/in/nenaddimovski) · [GitHub](https://github.com/SecDimo)
 
-No automated target database or tracking system was used.
+---
 
-### 3. Email Template Development
-
-Custom HTML email templates were created for the phishing-awareness campaign.
-
-The repository contains multiple email scenarios:
-
-| File | Description |
-|---|---|
-| `email_template.html` | Main phishing email template |
-| `email_template_maintenance.html` | Maintenance-themed phishing email |
-| `email_template_survey.html` | Survey-themed phishing email |
-
-The templates were designed to resemble legitimate organizational communications while demonstrating common phishing and social-engineering techniques.
-
-### 4. Email Design
-
-Custom visual elements were created for the email templates.
-
-| File | Description |
-|---|---|
-| `header_banner.jpg` | Custom header banner used in the email |
-| `footer_banner.jpg` | Custom footer banner used in the email |
-
-The HTML templates incorporated these graphics to create a more realistic and professional-looking email.
-
-### 5. Email Preparation
-
-The completed HTML email templates were manually copied into the email body when preparing the campaign messages.
-
-The emails were not generated through an automated mailing system.
-
-Instead, each email was manually prepared using the HTML content created for the project.
-
-### 6. Campaign
-
-The prepared phishing-awareness emails were sent to the identified targets as part of the authorized academic exercise.
-
-The campaign was designed to demonstrate how information gathered through OSINT could be combined with realistic email content to create a targeted social-engineering scenario.
-
-## Campaign Workflow
-
-```text
-OSINT Research
-      |
-      v
-Target Identification
-      |
-      v
-Phishing Scenario Development
-      |
-      v
-HTML Email Creation
-      |
-      v
-Header & Footer Design
-      |
-      v
-Manual Email Preparation
-      |
-      v
-Authorized Phishing Simulation
-      |
-      v
-Results & Analysis
+**Disclaimer:** This project was performed under authorization for educational purposes only. No individuals or organizations were harmed, and no data was retained or used beyond the scope of this assessment.
