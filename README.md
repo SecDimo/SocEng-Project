@@ -38,7 +38,7 @@ The project used Open-Source Intelligence (OSINT) techniques to gather publicly 
 15 clicks registered in database
 
 **Screenshots:**
-<img width="849" height="949" alt="Screenshot 2026-09-10 203605" src="https://github.com/user-attachments/assets/0640e9b1-288f-4562-ba1c-28bdb9f5c6df" />![Uploading Screenshot 2026-09-10 203605.png…]()
+<img width="849" height="949" alt="Screenshot 2026-09-10 203605" src="https://github.com/user-attachments/assets/0640e9b1-288f-4562-ba1c-28bdb9f5c6df" />
 <img width="714" height="699" alt="Screenshot 2026-09-10 204439" src="https://github.com/user-attachments/assets/391aa223-2d84-48c6-bba6-37907e6ac08f" />
 
 
